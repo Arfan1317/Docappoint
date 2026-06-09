@@ -3,10 +3,21 @@ import { useEffect } from "react";
 import Link from "next/link";
 import doctorsData from "@/data/doctors.json";
 import DoctorCard from "@/components/DoctorCard";
-// Added the 4 icons needed for the "Why Choose" section
-import { UserCheck, CalendarCheck, ShieldCheck, Headset } from "lucide-react"; 
+import { 
+  UserCheck, 
+  CalendarCheck, 
+  ShieldCheck, 
+  Headset, 
+  Search, 
+  CalendarDays, 
+  Stethoscope, 
+  ArrowRight, 
+  Star 
+} from "lucide-react";
 
 export default function Home() {
+  
+  // Intersection Observer for scroll animations
   useEffect(() => {
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
@@ -26,7 +37,7 @@ export default function Home() {
   return (
     <main className="min-h-screen">
       
-      {/* 1. HERO BANNER (Your exact code) */}
+      {/* 1. HERO BANNER (With your custom background tweaks) */}
       <section className="bg-[#EAF6F4] relative overflow-hidden pt-8 md:pt-16 px-4 sm:px-6 lg:px-8">
         <div className="absolute top-0 left-0 w-32 md:w-48 h-48 md:h-64 bg-[#b5e0d8] rounded-r-full md:rounded-br-full opacity-90 -translate-x-12 md:-translate-x-4"></div>
         <div className="absolute top-20 right-0 w-64 md:w-96 h-64 md:h-96 bg-[#b5e0d8] rounded-l-full opacity-60 translate-x-16 md:translate-x-24"></div>
@@ -63,7 +74,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 2. TOP DOCTORS (Your exact code) */}
+      {/* 2. TOP RATED DOCTORS */}
       <section className="py-16 md:py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto overflow-hidden">
         
         <div className="text-center mb-12 scroll-reveal">
@@ -82,7 +93,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 3. NEW: WHY CHOOSE DOCAPPOINT? */}
+      {/* 3. WHY CHOOSE DOCAPPOINT? */}
       <section className="pb-16 md:pb-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto overflow-hidden">
         <div className="text-center mb-12 scroll-reveal">
           <h2 className="text-2xl md:text-3xl font-bold text-[#0A1D2E] mb-3">
@@ -91,11 +102,9 @@ export default function Home() {
           <div className="h-1 w-12 bg-[#007E63] mx-auto rounded-full"></div>
         </div>
 
-        {/* Grid: 1 col on mobile, 2 cols on tablet, 4 cols on laptop. Also adds the subtle vertical dividers from the design on larger screens */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 text-center sm:divide-x divide-gray-200">
-          
           <div className="scroll-reveal flex flex-col items-center px-4">
-            <div className="w-16 h-16 bg-[#EAF6F4] rounded-full flex items-center justify-center mb-4 text-[#007E63]">
+            <div className="w-16 h-16 bg-[#EAF6F4] rounded-full flex items-center justify-center mb-4 text-[#007E63] hover:scale-110 transition-transform cursor-pointer">
               <UserCheck size={30} />
             </div>
             <h3 className="text-lg font-bold text-[#0A1D2E] mb-2">Verified Doctors</h3>
@@ -103,7 +112,7 @@ export default function Home() {
           </div>
 
           <div className="scroll-reveal flex flex-col items-center px-4" style={{ transitionDelay: "100ms" }}>
-            <div className="w-16 h-16 bg-[#EAF6F4] rounded-full flex items-center justify-center mb-4 text-[#007E63]">
+            <div className="w-16 h-16 bg-[#EAF6F4] rounded-full flex items-center justify-center mb-4 text-[#007E63] hover:scale-110 transition-transform cursor-pointer">
               <CalendarCheck size={30} />
             </div>
             <h3 className="text-lg font-bold text-[#0A1D2E] mb-2">Fast Booking</h3>
@@ -111,7 +120,7 @@ export default function Home() {
           </div>
 
           <div className="scroll-reveal flex flex-col items-center px-4" style={{ transitionDelay: "200ms" }}>
-            <div className="w-16 h-16 bg-[#EAF6F4] rounded-full flex items-center justify-center mb-4 text-[#007E63]">
+            <div className="w-16 h-16 bg-[#EAF6F4] rounded-full flex items-center justify-center mb-4 text-[#007E63] hover:scale-110 transition-transform cursor-pointer">
               <ShieldCheck size={30} />
             </div>
             <h3 className="text-lg font-bold text-[#0A1D2E] mb-2">Secure & Safe</h3>
@@ -119,22 +128,18 @@ export default function Home() {
           </div>
 
           <div className="scroll-reveal flex flex-col items-center px-4" style={{ transitionDelay: "300ms" }}>
-            <div className="w-16 h-16 bg-[#EAF6F4] rounded-full flex items-center justify-center mb-4 text-[#007E63]">
+            <div className="w-16 h-16 bg-[#EAF6F4] rounded-full flex items-center justify-center mb-4 text-[#007E63] hover:scale-110 transition-transform cursor-pointer">
               <Headset size={30} />
             </div>
             <h3 className="text-lg font-bold text-[#0A1D2E] mb-2">24/7 Support</h3>
             <p className="text-gray-500 text-sm">We are here to help you anytime.</p>
           </div>
-
         </div>
       </section>
 
-      {/* 4. NEW: CALL TO ACTION BANNER */}
+      {/* 4. CALL TO ACTION BANNER */}
       <section className="pb-16 md:pb-24 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto overflow-hidden">
-        {/* Background color block with rounded corners */}
         <div className="bg-[#EAF6F4] rounded-3xl flex flex-col md:flex-row items-center justify-between px-6 md:px-16 pt-10 md:pt-0 overflow-hidden scroll-reveal">
-          
-          {/* Left Side: Text and Button */}
           <div className="w-full md:w-[55%] py-8 md:py-16 text-center md:text-left z-10">
             <h2 className="text-2xl md:text-4xl lg:text-[2.5rem] font-bold text-[#0A1D2E] mb-4 md:mb-5 leading-tight">
               Your Health is in Good Hands
@@ -149,8 +154,6 @@ export default function Home() {
               Book Now
             </Link>
           </div>
-
-          {/* Right Side: The Book.png Image */}
           <div className="w-full md:w-[45%] flex justify-center md:justify-end items-end h-full mt-6 md:mt-10">
             <img 
               src="/Book.png" 
@@ -158,7 +161,91 @@ export default function Home() {
               className="w-[90%] md:w-[120%] lg:max-w-[450px] object-contain object-bottom block transform md:translate-y-2" 
             />
           </div>
+        </div>
+      </section>
 
+      {/* 5. HOW IT WORKS */}
+      <section className="pb-16 md:pb-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto overflow-hidden">
+        <div className="text-center mb-12 md:mb-16 scroll-reveal">
+          <h2 className="text-2xl md:text-3xl font-bold text-[#0A1D2E] mb-3">How It Works</h2>
+          <div className="h-1 w-12 bg-[#007E63] mx-auto rounded-full"></div>
+        </div>
+
+        <div className="flex flex-col md:flex-row items-center justify-center gap-8 lg:gap-12 relative">
+          <div className="scroll-reveal flex flex-col items-center text-center w-full md:w-1/3">
+            <div className="w-20 h-20 bg-[#EAF6F4] rounded-full flex items-center justify-center mb-6 text-[#007E63] shadow-sm transition-transform hover:scale-110 duration-300">
+              <Search size={32} />
+            </div>
+            <h3 className="text-lg md:text-xl font-bold text-[#0A1D2E] mb-3">Search Doctors</h3>
+            <p className="text-gray-500 text-sm md:text-base max-w-[220px]">Search for specialists based on your needs.</p>
+          </div>
+
+          <div className="hidden md:block text-gray-200 scroll-reveal" style={{ transitionDelay: "100ms" }}>
+            <ArrowRight size={40} strokeWidth={1} />
+          </div>
+
+          <div className="scroll-reveal flex flex-col items-center text-center w-full md:w-1/3" style={{ transitionDelay: "150ms" }}>
+            <div className="w-20 h-20 bg-[#EAF6F4] rounded-full flex items-center justify-center mb-6 text-[#007E63] shadow-sm transition-transform hover:scale-110 duration-300">
+              <CalendarDays size={32} />
+            </div>
+            <h3 className="text-lg md:text-xl font-bold text-[#0A1D2E] mb-3">Book Appointment</h3>
+            <p className="text-gray-500 text-sm md:text-base max-w-[220px]">Choose date and time that works for you.</p>
+          </div>
+
+          <div className="hidden md:block text-gray-200 scroll-reveal" style={{ transitionDelay: "250ms" }}>
+            <ArrowRight size={40} strokeWidth={1} />
+          </div>
+
+          <div className="scroll-reveal flex flex-col items-center text-center w-full md:w-1/3" style={{ transitionDelay: "300ms" }}>
+            <div className="w-20 h-20 bg-[#EAF6F4] rounded-full flex items-center justify-center mb-6 text-[#007E63] shadow-sm transition-transform hover:scale-110 duration-300">
+              <Stethoscope size={32} />
+            </div>
+            <h3 className="text-lg md:text-xl font-bold text-[#0A1D2E] mb-3">Visit & Get Care</h3>
+            <p className="text-gray-500 text-sm md:text-base max-w-[220px]">Visit the doctor and feel better.</p>
+          </div>
+        </div>
+      </section>
+
+      {/* 6. WHAT OUR PATIENTS SAY */}
+      <section className="pb-16 md:pb-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto overflow-hidden">
+        <div className="text-center mb-12 scroll-reveal">
+          <h2 className="text-2xl md:text-3xl font-bold text-[#0A1D2E] mb-3">What Our Patients Say</h2>
+          <div className="h-1 w-12 bg-[#007E63] mx-auto rounded-full"></div>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
+          <div className="bg-white p-6 md:p-8 rounded-2xl border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-300 scroll-reveal group">
+            <div className="flex items-center gap-4 mb-4">
+              <img src="/RaselAhmed.jpeg" alt="Rasel Ahmed" className="w-14 h-14 rounded-full object-cover border-2 border-[#EAF6F4] group-hover:border-[#007E63] transition-colors" />
+              <h4 className="font-bold text-[#0A1D2E]">Rasel Ahmed</h4>
+            </div>
+            <p className="text-gray-600 mb-6 text-sm md:text-base leading-relaxed">"Excellent service and very easy to book appointments."</p>
+            <div className="flex gap-1">
+              {[...Array(5)].map((_, i) => <Star key={i} size={18} className="fill-yellow-400 text-yellow-400" />)}
+            </div>
+          </div>
+
+          <div className="bg-white p-6 md:p-8 rounded-2xl border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-300 scroll-reveal group" style={{ transitionDelay: "150ms" }}>
+            <div className="flex items-center gap-4 mb-4">
+              <img src="/SadiaIslam.jpeg" alt="Sadia Islam" className="w-14 h-14 rounded-full object-cover border-2 border-[#EAF6F4] group-hover:border-[#007E63] transition-colors" />
+              <h4 className="font-bold text-[#0A1D2E]">Sadia Islam</h4>
+            </div>
+            <p className="text-gray-600 mb-6 text-sm md:text-base leading-relaxed">"Very professional and friendly doctors."</p>
+            <div className="flex gap-1">
+              {[...Array(5)].map((_, i) => <Star key={i} size={18} className="fill-yellow-400 text-yellow-400" />)}
+            </div>
+          </div>
+
+          <div className="bg-white p-6 md:p-8 rounded-2xl border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-300 scroll-reveal group" style={{ transitionDelay: "300ms" }}>
+            <div className="flex items-center gap-4 mb-4">
+              <img src="/ImranHossain.jpeg" alt="Imran Hossain" className="w-14 h-14 rounded-full object-cover border-2 border-[#EAF6F4] group-hover:border-[#007E63] transition-colors" />
+              <h4 className="font-bold text-[#0A1D2E]">Imran Hossain</h4>
+            </div>
+            <p className="text-gray-600 mb-6 text-sm md:text-base leading-relaxed">"Very helpful platform. Highly recommended!"</p>
+            <div className="flex gap-1">
+              {[...Array(5)].map((_, i) => <Star key={i} size={18} className="fill-yellow-400 text-yellow-400" />)}
+            </div>
+          </div>
         </div>
       </section>
       
