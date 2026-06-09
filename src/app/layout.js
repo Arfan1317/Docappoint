@@ -1,5 +1,6 @@
 import "./globals.css";
 import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer"; 
 import { Poppins } from "next/font/google";
 
 const poppins = Poppins({
@@ -7,7 +8,6 @@ const poppins = Poppins({
   weight: ["400", "500", "600", "700"],
   variable: "--font-poppins",
 });
-
 
 export const metadata = {
   title: "DocAppoint | Your Health, Our Priority",
@@ -20,10 +20,13 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en" className={poppins.variable}>
-     
-      <body className="antialiased bg-white text-gray-900 font-sans" style={{ fontFamily: "var(--font-poppins)" }}>
+    
+      <body className="antialiased bg-gray-50 text-gray-900 font-sans min-h-screen flex flex-col" style={{ fontFamily: "var(--font-poppins)" }}>
         <Navbar />
-        {children}
+        <main className="flex-grow">
+          {children}
+        </main>
+        <Footer /> 
       </body>
     </html>
   );
