@@ -7,9 +7,7 @@ import {
 } from "lucide-react";
 
 export default async function DoctorDetailsPage({ params }) {
-  // 1. AUTHENTICATION LOGIC
-  // TEMP: Set this to 'true' while you are designing so you can see the page!
-  // Set it to 'false' to test the redirect to the login page.
+
   const isLoggedIn = false; 
 
   if (!isLoggedIn) {
@@ -20,7 +18,6 @@ export default async function DoctorDetailsPage({ params }) {
   const { id } = await params;
   const doctor = doctorsData.find((doc) => doc.id === id);
 
-  // If someone types a random ID in the URL, show a fallback or 404
   if (!doctor) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gray-50">
@@ -29,8 +26,6 @@ export default async function DoctorDetailsPage({ params }) {
     );
   }
 
-  // 3. MOCK EXTENDED DATA
-  // Since our JSON doesn't have all these specific details yet, we use generic fallbacks to match the design perfectly.
   const specializations = ["Heart Diseases", "Preventive Cardiology", "Hypertension", "Arrhythmia", "Echocardiography"];
   
   return (
