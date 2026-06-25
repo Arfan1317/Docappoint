@@ -1,6 +1,7 @@
 import { redirect } from "next/navigation";
 import Link from "next/link";
 import doctorsData from "@/data/doctors.json";
+import BookingModal from "@/components/BookingModal";
 import { 
   ArrowLeft, Star, GraduationCap, HeartPulse, 
   Briefcase, Languages, MapPin, Calendar, Clock, CalendarDays 
@@ -14,7 +15,7 @@ export default async function DoctorDetailsPage({ params }) {
     redirect("/login");
   }
 
-  // 2. FETCH DOCTOR DATA
+
   const { id } = await params;
   const doctor = doctorsData.find((doc) => doc.id === id);
 
@@ -41,7 +42,7 @@ export default async function DoctorDetailsPage({ params }) {
           Back to All Doctors
         </Link>
 
-        {/* --- 1. PROFILE HEADER CARD --- */}
+       
         <div className="bg-white rounded-2xl p-6 md:p-10 border border-gray-100 shadow-sm flex flex-col md:flex-row gap-8 mb-8 animate-fade-in-up">
           
           {/* Doctor Image */}
@@ -55,7 +56,7 @@ export default async function DoctorDetailsPage({ params }) {
             </div>
           </div>
 
-          {/* Doctor Quick Info */}
+         
           <div className="flex-grow flex flex-col justify-center space-y-4">
             <div>
               <h1 className="text-3xl font-bold text-[#0A1D2E] mb-1">{doctor.name}</h1>
@@ -95,7 +96,7 @@ export default async function DoctorDetailsPage({ params }) {
           </div>
         </div>
 
-        {/* --- 2. DETAILED INFORMATION SECTIONS --- */}
+       
         <div className="bg-white rounded-2xl p-6 md:p-10 border border-gray-100 shadow-sm space-y-10 animate-fade-in-up" style={{ transitionDelay: "100ms" }}>
           
           {/* About */}
@@ -106,7 +107,7 @@ export default async function DoctorDetailsPage({ params }) {
             </p>
           </div>
 
-          {/* Specializations (Pills) */}
+         
           <div>
             <h2 className="text-xl font-bold text-[#007E63] mb-4">Specializations</h2>
             <div className="flex flex-wrap gap-3">
@@ -209,7 +210,6 @@ export default async function DoctorDetailsPage({ params }) {
           </div>
         </div>
 
-        {/* --- 4. BOTTOM CALL TO ACTION --- */}
         <div className="mt-8 bg-[#EAF6F4] rounded-2xl p-6 md:p-8 flex flex-col md:flex-row items-center justify-between gap-6 animate-fade-in-up" style={{ transitionDelay: "200ms" }}>
           <div className="flex items-center gap-4 text-center md:text-left flex-col md:flex-row">
             <div className="w-14 h-14 bg-white rounded-full flex items-center justify-center text-[#007E63] shrink-0">
@@ -221,9 +221,8 @@ export default async function DoctorDetailsPage({ params }) {
             </div>
           </div>
           
-          <button className="w-full md:w-auto bg-[#007E63] hover:bg-[#006650] active:scale-95 text-white px-8 py-3.5 rounded-lg font-medium transition-all whitespace-nowrap">
-            Book an Appointment
-          </button>
+          <BookingModal doctorId={doctor.id} doctorName={doctor.name} />
+          
         </div>
 
       </div>
