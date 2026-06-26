@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
 import { X } from "lucide-react";
+import toast from "react-hot-toast";
 
 export default function BookingModal({ doctorId, doctorName }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -31,7 +32,7 @@ export default function BookingModal({ doctorId, doctorName }) {
     console.log("Sending to Backend:", appointmentData);
     
     try {
-      // Sending data to your new Express backend!
+     
       const res = await fetch('http://localhost:5000/api/appointments', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -39,19 +40,19 @@ export default function BookingModal({ doctorId, doctorName }) {
       });
       
       if(res.ok) {
-        alert("Appointment booked successfully in MongoDB!");
+        toast.success("Appointment booked successfully!");
         setIsOpen(false);
-        // Reset form to defaults
+       
         setFormData({
           patientName: "", gender: "Male", phone: "", 
           appointmentDate: "", appointmentTime: "10:30 AM", note: ""
         });
       } else {
-        alert("Failed to book appointment. Please try again.");
+        toast.error("Failed to book appointment. Please try again.");
       }
     } catch (error) {
       console.error("Failed to connect to backend:", error);
-      alert("Server error. Is your backend running?");
+      toast.error("Server error. Is your backend running?");
     }
   };
 
