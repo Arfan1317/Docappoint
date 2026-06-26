@@ -1,23 +1,20 @@
 "use client";
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { Bell, X, CheckCircle, CalendarX2 } from "lucide-react";
+import { Bell, X, CalendarX2 } from "lucide-react";
+import toast from "react-hot-toast"; // <-- Added our new toast library!
 
 export default function MyBookingsPage() {
   // START WITH NO INITIAL BOOKINGS
   const [bookings, setBookings] = useState([]);
-  
   const [selectedBooking, setSelectedBooking] = useState(null); 
-  const [toastMessage, setToastMessage] = useState(""); 
 
   // --- FUTURE MONGODB FETCH ---
-  // When we build the backend, this will automatically run when the page loads
-  // and fill the 'bookings' array with the user's real data.
   /*
   useEffect(() => {
     const fetchBookings = async () => {
       try {
-        const res = await fetch('/api/user/bookings');
+        const res = await fetch('https://docappoint-api-xyz.onrender.com/api/user/bookings');
         const data = await res.json();
         setBookings(data);
       } catch (error) {
@@ -34,11 +31,11 @@ export default function MyBookingsPage() {
     if (!confirmDelete) return;
 
     setBookings(bookings.filter(booking => booking.id !== id));
-    showToast("Appointment deleted successfully!");
+    toast.success("Appointment deleted successfully!"); // <-- Updated to use React Hot Toast
 
     // FUTURE BACKEND LOGIC
     /*
-    await fetch(`/api/appointments/${id}`, { method: 'DELETE' });
+    await fetch(`https://docappoint-api-xyz.onrender.com/api/appointments/${id}`, { method: 'DELETE' });
     */
   };
 
@@ -54,11 +51,11 @@ export default function MyBookingsPage() {
     e.preventDefault();
     setBookings(bookings.map(b => b.id === selectedBooking.id ? selectedBooking : b));
     setSelectedBooking(null);
-    showToast("Appointment updated successfully!");
+    toast.success("Appointment updated successfully!"); // <-- Updated to use React Hot Toast
 
     // FUTURE BACKEND LOGIC
     /*
-    await fetch(`/api/appointments/${selectedBooking.id}`, {
+    await fetch(`https://docappoint-api-xyz.onrender.com/api/appointments/${selectedBooking.id}`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(selectedBooking)
@@ -66,16 +63,10 @@ export default function MyBookingsPage() {
     */
   };
 
-  const showToast = (msg) => {
-    setToastMessage(msg);
-    setTimeout(() => setToastMessage(""), 3000); 
-  };
-
   return (
     <div className="min-h-screen bg-[#f8fafc] py-8 px-4 sm:px-6 lg:px-8 flex justify-center">
       <div className="max-w-5xl w-full flex flex-col lg:flex-row gap-8 relative">
         
-      
         <div className="flex-grow">
           {/* Header */}
           <div className="flex justify-between items-center mb-8">
@@ -88,10 +79,7 @@ export default function MyBookingsPage() {
             </button>
           </div>
 
-         
           {bookings.length === 0 ? (
-            
-           
             <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-12 flex flex-col items-center justify-center text-center animate-fade-in-up">
               <div className="w-20 h-20 bg-[#EAF6F4] rounded-full flex items-center justify-center mb-5 text-[#007E63]">
                 <CalendarX2 size={32} />
@@ -107,10 +95,7 @@ export default function MyBookingsPage() {
                 Book an Appointment
               </Link>
             </div>
-
           ) : (
-
-            
             <div className="space-y-4">
               {bookings.map((booking) => (
                 <div key={booking.id} className="bg-white p-5 rounded-2xl border border-gray-100 shadow-sm flex flex-col md:flex-row items-center gap-6 animate-fade-in-up">
@@ -178,7 +163,6 @@ export default function MyBookingsPage() {
           )}
         </div>
 
-        
         {selectedBooking && (
           <div className="fixed inset-0 lg:static lg:inset-auto z-50 flex justify-center items-center bg-black/40 lg:bg-transparent backdrop-blur-sm lg:backdrop-blur-none p-4 lg:p-0">
             <div className="bg-white rounded-2xl w-full max-w-md border border-gray-100 shadow-xl lg:shadow-sm flex flex-col max-h-[90vh] overflow-y-auto animate-fade-in-up lg:animate-none">
@@ -249,17 +233,6 @@ export default function MyBookingsPage() {
         )}
 
       </div>
-
-      {/* --- TOAST NOTIFICATION --- */}
-      {toastMessage && (
-        <div className="fixed bottom-8 left-1/2 transform -translate-x-1/2 bg-[#EAF6F4] border border-[#007E63] text-[#007E63] px-6 py-3 rounded-lg shadow-lg flex items-center gap-3 animate-fade-in-up z-50">
-          <CheckCircle size={20} className="text-[#007E63]" />
-          <span className="font-semibold text-sm">{toastMessage}</span>
-          <button onClick={() => setToastMessage("")} className="ml-4 text-[#007E63] hover:text-[#006650]">
-            <X size={16} />
-          </button>
-        </div>
-      )}
     </div>
   );
 }
